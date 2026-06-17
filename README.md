@@ -15,7 +15,7 @@ This is my first published npm package - built to learn and to have something re
 
 ## Installation
 ```bash 
-npm install rgapi
+npm i @zhenyaz/rgapi
 ```
 
 ## Quick Start
