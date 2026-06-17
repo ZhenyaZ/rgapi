@@ -1,15 +1,28 @@
 {
   "name": "rgapi",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "TypeScript SDK for the Riot Games API",
   "license": "MIT",
   "author": "ZhenyaZ",
   "type": "commonjs",
   "types": "./dist/index.d.ts",
-  "repository": {"type": "git", "url": "git+https://github.com/ZhenyaZ/rgapi.git"},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZhenyaZ/rgapi.git"
+  },
   "homepage": "https://github.com/ZhenyaZ/rgapi#readme",
   "bugs": "https://github.com/ZhenyaZ/rgapi/issues",
-  "keywords": ["riot", "league-of-legends", "lol", "valorant", "riotgames", "league of legends", "api", "sdk", "typescript"],
+  "keywords": [
+    "riot",
+    "league-of-legends",
+    "lol",
+    "valorant",
+    "riotgames",
+    "league of legends",
+    "api",
+    "sdk",
+    "typescript"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "exports": {
