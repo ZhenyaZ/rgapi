@@ -1,0 +1,42 @@
+{
+  "name": "rgapi",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for the Riot Games API",
+  "license": "MIT",
+  "author": "ZhenyaZ",
+  "type": "commonjs",
+  "types": "./dist/index.d.ts",
+  "repository": {"type": "git", "url": "git+https://github.com/ZhenyaZ/rgapi.git"},
+  "homepage": "https://github.com/ZhenyaZ/rgapi#readme",
+  "bugs": "https://github.com/ZhenyaZ/rgapi/issues",
+  "keywords": ["riot", "league-of-legends", "lol", "valorant", "riotgames", "league of legends", "api", "sdk", "typescript"],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "module": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "dry-run": "npm publish --dry-run"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.3",
+    "dotenv": "^17.4.2",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9"
+  }
+}
