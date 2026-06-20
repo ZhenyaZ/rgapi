@@ -1,4 +1,4 @@
-export type Queue = "RANKED_SOLO_5X5" | "RANKED_FLEX_SR" | "RANKED_FLEX_TT";
+export type Queue = "RANKED_SOLO_5x5" | "RANKED_FLEX_SR" | "RANKED_FLEX_TT";
 export type Tier = "IRON" | "BRONZE" | "SILVER" | "GOLD" | "PLATINUM" | "EMERALD" | "DIAMOND" | "MASTER" | "GRANDMASTER" | "CHALLENGER";
 export type TierReq = "IRON" | "BRONZE" | "SILVER" | "GOLD" | "PLATINUM" | "EMERALD" | "DIAMOND";
 export type Division = "I" | "II" | "III" | "IV";
