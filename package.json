@@ -1,6 +1,6 @@
 {
   "name": "@zhenyaz/rgapi",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "TypeScript SDK for the Riot Games API",
   "license": "MIT",
   "author": "ZhenyaZ",
