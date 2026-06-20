@@ -9,7 +9,8 @@ This is my first published npm package - built to learn and to have something re
 - [X] SummonerAPI (get summoner by Puuid)
 - [X] MatchAPI (get match ids, get match by matchId)
 - [X] Rate limiting
-- [ ] Ranked stats (League of Legends)
+- [X] Ranked stats (League of Legends)
+- [X] Status (League of Legends)
 - [ ] Cover all Riot API
 - [ ] Valorant support
 
@@ -20,7 +21,7 @@ npm i @zhenyaz/rgapi
 
 ## Quick Start
 ```ts
-import { RiotClient } from "rgapi";
+import { RiotClient } from "@zhenyaz/rgapi";
 // Create client
 const client = new RiotClient({apiKey: 'API KEY', region: 'EUW1'}); 
 // Get account to get puuid
@@ -29,11 +30,46 @@ const account = await client.account.getAccountByNameAndTag("username", "tagLine
 const summoner = await client.lol.summoner.getByPuuid(account.puuid);
 const matchIds = await client.lol.match.getMatchIds(account.puuid);
 const match = await client.lol.match.getMatchById(matchIds[0]);
-
+const league = await client.lol.league.getByPuuid(account.puuid);
+const status = await client.lol.status.get();
 ```
 
+## API Reference
+
+### `client.account`
+| Method | Description |
+| --- | --- |
+| `getAccountByNameAndTag(name, tag)` | Get an account by Riot ID (e.g. `"username"`, `"tagLine"`). Returns `Account` with `puuid`. |
+
+### `client.lol.summoner`
+| Method | Description |
+| --- | --- |
+| `getByPuuid(puuid)` | Get a summoner by puuid. Returns `Summoner`. |
+
+### `client.lol.match`
+| Method | Description |
+| --- | --- |
+| `getMatchIds(puuid, options?)` | Get a list of match ids. `options`: `{ count?, start?, queue? }` (defaults to `count: 20`). Returns `string[]`. |
+| `getMatchById(matchId)` | Get full match data by match id. Returns `Match`. |
+
+### `client.lol.league`
+| Method | Description |
+| --- | --- |
+| `getByPuuid(puuid)` | Get all ranked entries for a player. Returns `LeagueEntry[]`. |
+| `getAllEntries(queue, tier, division, page?)` | Get all entries for a queue/tier/division (paginated, `page` defaults to `1`). Returns `LeagueEntry[]`. |
+| `getChallengerLeagueByQueue(queue)` | Get the Challenger league for a queue. Returns `LeagueList`. |
+| `getGrandmasterLeagueByQueue(queue)` | Get the Grandmaster league for a queue. Returns `LeagueList`. |
+| `getMasterLeagueByQueue(queue)` | Get the Master league for a queue. Returns `LeagueList`. |
+
+`queue`: `"RANKED_SOLO_5X5" | "RANKED_FLEX_SR" | "RANKED_FLEX_TT"` · `tier` (for `getAllEntries`): `IRON`–`DIAMOND` · `division`: `"I" | "II" | "III" | "IV"`
+
+### `client.lol.status`
+| Method | Description |
+| --- | --- |
+| `get()` | Get LoL platform status (maintenances & incidents). Returns `PlatformData`. |
+
 ## Features
-- Summoner / Account / Match API
+- Summoner / Account / Match API / League API / Status
 - Rate limiting (20/1s, 100/2min)
 - Fully typed
 - Platform/regional routing

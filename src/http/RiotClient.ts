@@ -1,5 +1,7 @@
 import { AccountApi } from "../account/AccountApi";
+import { LeagueApi } from "../lol/LeagueApi";
 import { MatchApi } from "../lol/MatchApi";
+import { StatusApi } from "../lol/StatusApi";
 import { SummonerApi } from "../lol/SummonerApi";
 import { HttpClient } from "./HttpClient";
 import { RateLimiter } from "./RateLimiter";
@@ -14,6 +16,8 @@ export class RiotClient {
     readonly lol: {
         summoner: SummonerApi;
         match: MatchApi;
+        status: StatusApi;
+        league: LeagueApi;
     }
     readonly account: AccountApi;
     constructor(config: RiotClientConfig) {
@@ -28,7 +32,12 @@ export class RiotClient {
         const platformHttp = new HttpClient({baseUrl: platformUrl, apiKey: config.apiKey, rateLimiter: new RateLimiter([{limit: 20, windowMs:1000, timestamps: []}, {limit: 100, windowMs:120_000, timestamps: []}])});
         const regionalHttp = new HttpClient({baseUrl: regionalUrl, apiKey: config.apiKey, rateLimiter: new RateLimiter([{limit: 20, windowMs:1000, timestamps: []}, {limit: 100, windowMs:120_000, timestamps: []}])});
 
-        this.lol = {summoner: new SummonerApi(platformHttp), match: new MatchApi(regionalHttp)};
+        this.lol = {
+            summoner: new SummonerApi(platformHttp), 
+            match: new MatchApi(regionalHttp), 
+            status: new StatusApi(platformHttp),
+            league: new LeagueApi(platformHttp),
+        };
         this.account = new AccountApi(regionalHttp);
     }
 }
