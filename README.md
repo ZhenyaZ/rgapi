@@ -1,6 +1,9 @@
 # RGAPI
-TypeScript SDK for the Riot Games API. Wraps platform and regional HTTP endpoints into a clean, typed interface
+[![npm version](https://img.shields.io/npm/v/%40zhenyaz%2Frgapi.svg)](https://www.npmjs.com/package/@zhenyaz/rgapi)
+[![npm downloads](https://img.shields.io/npm/dm/%40zhenyaz%2Frgapi.svg)](https://www.npmjs.com/package/@zhenyaz/rgapi)
+[![license](https://img.shields.io/npm/l/%40zhenyaz%2Frgapi.svg)](./LICENSE)
 
+TypeScript SDK for the Riot Games API. Wraps platform and regional HTTP endpoints into a clean, typed interface.
 ## Note
 
 This is my first published npm package - built to learn and to have something reusable for my own projects. If you spot something off, have feedback, or just want to suggest a better approach, feel free to open an issue or reach out. Any input is appreciated.
