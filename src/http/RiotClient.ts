@@ -1,4 +1,6 @@
 import { AccountApi } from "../account/AccountApi";
+import { ChampionApi } from "../lol/ChampionApi";
+import { ClashApi } from "../lol/ClashApi";
 import { LeagueApi } from "../lol/LeagueApi";
 import { MatchApi } from "../lol/MatchApi";
 import { StatusApi } from "../lol/StatusApi";
@@ -18,8 +20,16 @@ export class RiotClient {
         match: MatchApi;
         status: StatusApi;
         league: LeagueApi;
+        champion: ChampionApi;
+        clash: ClashApi;
     }
     readonly account: AccountApi;
+    /**
+     * Create a Riot API client. Sets up platform- and regional-routed HTTP clients
+     * (each with its own rate limiter) and wires up every LoL and account API.
+     * @param config Client config: API key and optional default platform (region), defaulting to EUW1.
+     * @throws {Error} If the configured region is not a known platform.
+     */
     constructor(config: RiotClientConfig) {
         
         const region = (config.region ?? "EUW1").toUpperCase() as Platform;
@@ -37,6 +47,8 @@ export class RiotClient {
             match: new MatchApi(regionalHttp), 
             status: new StatusApi(platformHttp),
             league: new LeagueApi(platformHttp),
+            champion: new ChampionApi(platformHttp),
+            clash: new ClashApi(platformHttp),
         };
         this.account = new AccountApi(regionalHttp);
     }

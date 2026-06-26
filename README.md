@@ -14,6 +14,8 @@ This is my first published npm package - built to learn and to have something re
 - [X] Rate limiting
 - [X] Ranked stats (League of Legends)
 - [X] Status (League of Legends)
+- [X] Champion rotations & mastery (League of Legends)
+- [X] Clash (League of Legends)
 - [ ] Cover all Riot API
 - [ ] Valorant support
 
@@ -35,6 +37,9 @@ const matchIds = await client.lol.match.getMatchIds(account.puuid);
 const match = await client.lol.match.getMatchById(matchIds[0]);
 const league = await client.lol.league.getByPuuid(account.puuid);
 const status = await client.lol.status.get();
+const rotations = await client.lol.champion.rotations();
+const mastery = await client.lol.champion.allChampionMastery(account.puuid);
+const tournaments = await client.lol.clash.getTournaments();
 ```
 
 ## API Reference
@@ -71,8 +76,26 @@ const status = await client.lol.status.get();
 | --- | --- |
 | `get()` | Get LoL platform status (maintenances & incidents). Returns `PlatformData`. |
 
+### `client.lol.champion`
+| Method | Description |
+| --- | --- |
+| `rotations()` | Get free-to-play champion rotations (including the low-level rotation). Returns `ChampionInfo`. |
+| `allChampionMastery(puuid)` | Get all champion mastery entries, highest points first. Returns `ChampionMastery[]`. |
+| `championMastery(puuid, championId)` | Get a single champion's mastery for a player. Returns `ChampionMastery`. |
+| `topChampionMastery(puuid, count?)` | Get the top mastery entries (`count` defaults to `3`). Returns `ChampionMastery[]`. |
+| `totalChampionMastery(puuid)` | Get a player's total mastery score. Returns `number`. |
+
+### `client.lol.clash`
+| Method | Description |
+| --- | --- |
+| `getPlayers(puuid)` | Get a player's active Clash registrations. Returns `Player[]`. |
+| `getTeam(teamId)` | Get a Clash team by id. Returns `Team`. |
+| `getTournaments()` | Get all active and upcoming tournaments. Returns `Tournament[]`. |
+| `getTournamentByTeamId(teamId)` | Get the tournament a team is registered for. Returns `Tournament`. |
+| `getTournamentById(tournamentId)` | Get a tournament by id. Returns `Tournament`. |
+
 ## Features
-- Summoner / Account / Match API / League API / Status
+- Summoner / Account / Match / League / Status / Champion / Clash APIs
 - Rate limiting (20/1s, 100/2min)
 - Fully typed
 - Platform/regional routing

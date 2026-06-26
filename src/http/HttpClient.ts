@@ -1,6 +1,15 @@
 import { RateLimiter } from "./RateLimiter";
 
+/**
+ * Error thrown when the Riot API responds with a non-2xx status.
+ * Carries the HTTP status and status text alongside a human-readable message.
+ */
 export class RiotApiError extends Error {
+    /**
+     * @param status HTTP status code returned by the Riot API.
+     * @param statusText HTTP status text returned by the Riot API.
+     * @param message Human-readable description of the error.
+     */
     constructor(
         public readonly status: number,
         public readonly statusText: string,
@@ -27,6 +36,15 @@ export class HttpClient {
         this.rl = config.rateLimiter
     }
 
+    /**
+     * Perform an authenticated GET request against the Riot API.
+     * Waits on the rate limiter (if configured), sends the API key header,
+     * and parses the JSON response.
+     * @param path Path appended to the base URL (e.g. `/lol/summoner/v4/...`).
+     * @param params Optional query parameters appended to the URL.
+     * @returns The parsed JSON response, typed as `T`.
+     * @throws {RiotApiError} If the response status is not ok.
+     */
     async get<T>(path: string, params?: Record<string, string | number>): Promise<T> {
         const url = new URL(this.baseUrl + path);
         if (params) {
