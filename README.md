@@ -16,8 +16,8 @@ This is my first published npm package - built to learn and to have something re
 - [X] Status (League of Legends)
 - [X] Champion rotations & mastery (League of Legends)
 - [X] Clash (League of Legends)
+- [X] Valorant support (Status, Ranked, Match, Content)
 - [ ] Cover all Riot API
-- [ ] Valorant support
 
 ## Installation
 ```bash 
@@ -40,6 +40,12 @@ const status = await client.lol.status.get();
 const rotations = await client.lol.champion.rotations();
 const mastery = await client.lol.champion.allChampionMastery(account.puuid);
 const tournaments = await client.lol.clash.getTournaments();
+
+// Valorant (routed to the shard matching your region)
+const valStatus = await client.val.status.get();
+const valMatchlist = await client.val.match.getMatchlist(account.puuid);
+const valMatch = await client.val.match.getMatchById(valMatchlist.history[0].matchId);
+const content = await client.val.content.get("en-US");
 ```
 
 ## API Reference
@@ -94,11 +100,34 @@ const tournaments = await client.lol.clash.getTournaments();
 | `getTournamentByTeamId(teamId)` | Get the tournament a team is registered for. Returns `Tournament`. |
 | `getTournamentById(tournamentId)` | Get a tournament by id. Returns `Tournament`. |
 
+### `client.val.status`
+| Method | Description |
+| --- | --- |
+| `get()` | Get Valorant status for the shard (maintenances & incidents). Returns `Platform`. |
+
+### `client.val.ranked`
+| Method | Description |
+| --- | --- |
+| `leaderboard(actId, size?, startIndex?)` | Get the competitive leaderboard for an act (`size` defaults to `200`, `startIndex` to `0`). Returns `Leaderboard`. |
+
+### `client.val.match`
+| Method | Description |
+| --- | --- |
+| `getMatchById(matchId)` | Get full match data by match id. Returns `ValMatch`. |
+| `getMatchlist(puuid)` | Get a player's recent match list. Returns `Matchlist`. |
+| `getRecentMatches(queue)` | Get recent match ids for a queue (e.g. `"competitive"`). Returns `RecentMatches`. |
+
+### `client.val.content`
+| Method | Description |
+| --- | --- |
+| `get(locale?)` | Get Valorant content (characters, maps, skins, acts…). Pass a `locale` (e.g. `"en-US"`) for localized names. Returns `ValContent`. |
+
 ## Features
-- Summoner / Account / Match / League / Status / Champion / Clash APIs
+- LoL: Summoner / Account / Match / League / Status / Champion / Clash APIs
+- Valorant: Status / Ranked / Match / Content APIs
 - Rate limiting (20/1s, 100/2min)
 - Fully typed
-- Platform/regional routing
+- Platform/regional/Valorant-shard routing
 
 ## License
 MIT

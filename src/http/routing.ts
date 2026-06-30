@@ -19,11 +19,27 @@ export const REGIONS = {
   SEA:      "https://sea.api.riotgames.com",
 } as const;
 
+export const VAL_PLATFORMS = {
+  AP:      "https://ap.api.riotgames.com",
+  BR:      "https://br.api.riotgames.com",
+  EU:      "https://eu.api.riotgames.com",
+  KR:      "https://kr.api.riotgames.com",
+  LATAM:   "https://latam.api.riotgames.com",
+  NA:      "https://na.api.riotgames.com",
+  ESPORTS: "https://esports.api.riotgames.com",
+} as const;
+
 export type Platform = keyof typeof PLATFORMS;
 export type Region   = keyof typeof REGIONS;
+export type ValShard = keyof typeof VAL_PLATFORMS;
 export const PLATFORM_TO_REGION: Record<Platform, Region> = {
   BR1: "AMERICAS", LA1: "AMERICAS", LA2: "AMERICAS", NA1: "AMERICAS",
   KR: "ASIA", JP1: "ASIA",
   OC1: "SEA",
   EUW1: "EUROPE", EUN1: "EUROPE", TR1: "EUROPE", RU: "EUROPE",
+};
+export const PLATFORM_TO_VAL: Record<Platform, ValShard> = {
+  NA1: "NA", BR1: "BR", LA1: "LATAM", LA2: "LATAM",
+  OC1: "AP", JP1: "AP", KR: "KR",
+  EUW1: "EU", EUN1: "EU", TR1: "EU", RU: "EU",
 };
